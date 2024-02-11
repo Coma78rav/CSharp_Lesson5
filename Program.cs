@@ -18,4 +18,49 @@
 // InputArray (array);
 // System.Console.WriteLine($"Начальный массив: [{string.Join(", ", array)}]");
 
-// 
+// Задача 1
+//Задайте двумерный массив. Найдите элементы, у которых оба
+//индекса чётные, и замените эти элементы на их квадраты
+
+using System.Globalization;
+using System.Runtime.Serialization.Json;
+
+void inputMatrix(int[,] matrix){
+    for (int i = 0; i < matrix.GetLength(0); i++){
+        for (int j = 0; j < matrix.GetLength(1); j++){
+            matrix [i, j] = new Random().Next(1, 11); // [50, 150]
+        }
+    }
+}
+
+void printMatrix(int[,] matrix){
+    // matrix.GetLength(0) - кол-во строк
+    // matrix.GetLength(1) - кол-во столбцов
+    for (int i = 0; i < matrix.GetLength(0); i++){
+        for (int j = 0; j < matrix.GetLength(1); j++){
+            Console.Write($"{matrix[i, j]} \t");
+            // \n - переход на новую строку
+            // \t - табуляция
+        }
+        Console.WriteLine();
+    }
+}
+
+void replaceElements(int [,] matrix){
+    for (int i = 0; i < matrix.GetLength(0); i += 2){ // i = i +2
+        for (int j = 0; j < matrix.GetLength(1); j += 2){
+        matrix [i, j] *= matrix[i, j]; // matrix [i, j] = matrix [i, j] * matrix [i, j]
+        } 
+    }
+}
+
+Console.Clear();
+Console.Write("Введите размер 2D массива: ");
+int [] size = Console.ReadLine()!.Split().Select(x => int.Parse(x)).ToArray();
+int[,] matrix =new int[size[0], size[1]];
+inputMatrix(matrix);
+Console.WriteLine("Начальный массива: ");
+printMatrix(matrix);
+replaceElements(matrix);
+Console.WriteLine("\nКонечный массива: ");
+printMatrix(matrix);
